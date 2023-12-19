@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dim">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@4.4.20/dist/full.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+    {% comment %} header {% endcomment %}
+    {% include 'header.html' %} 
+    {% block content %} 
+    {% endblock %}
+
+    {% comment %} footer {% endcomment %}
+    <footer class="footer footer-center p-4 bg-base-300 text-base-content bottom-0 fixed">
+        <aside>
+          <p>Copyright © 2023 - All right reserved by ACME Industries Ltd</p>
+        </aside>
+    </footer>
+  </body>
+</html>
