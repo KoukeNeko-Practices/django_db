@@ -23,7 +23,7 @@
                 <td class="w-6/12">{{ message.text }}</td>
                 <td class="w-2/12">{{ message.created_at|date:"Y-m-d H:i" }}</td>
                 <td class="w-3/12 flex space-x-2">
-                  {% if message.user == request.user or request.user.is_superuser %}
+                  {% if message.user == request.user %}
                   <label for="edit_modal_{{ message.id }}" class="btn btn-square btn-outline" onclick="edit_modal_{{ message.id }}.showModal()">
                     <svg
                       xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

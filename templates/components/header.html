@@ -1,12 +1,56 @@
 <div class="navbar bg-base-100 fixed z-10">
   <div class="flex-1">
-    <a class="btn btn-ghost text-xl">Ｂ１１０１７０７０ 資料庫練習期末作業</a>
+    <a href="/" class="btn btn-ghost text-xl"
+      >Ｂ１１０１７０７０ 資料庫練習期末作業</a
+    >
   </div>
   <div class="flex-none">
     <ul class="menu menu-horizontal px-1">
-      <li><a>新增</a></li>
-      <li><a>我的留言</a></li>
-      <li><a href="/admin/">管理</a></li>
+      
+      <li><a href="/">All Message</a></li>
+      {% if request.user.is_authenticated %}
+        <li><label for="my_modal_7">New Message</label></li>
+        <li><a href="/my_messages/">My Message</a></li>
+        {% if request.user.is_superuser %}
+          <li><a href="/admin/">Manager</a></li>
+        {% endif %}
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+      {% else %}
+        <li><a href="/login/">Login</a></li>
+      {% endif %}
     </ul>
   </div>
+  <!-- Put this part before </body> tag -->
+  {% if request.user.is_authenticated %}
+  <!-- Modal for logged-in users -->
+  <input type="checkbox" id="my_modal_7" class="modal-toggle" />
+  <div class="modal" role="dialog">
+    <div class="modal-box">
+      <form method="post" action="{% url 'add_message' %}">
+        {% csrf_token %}
+        <h3 class="text-lg font-bold mb-6">Add Message!</h3>
+        <div class="flex flex-col space-y-4">
+          <textarea
+            name="message_text"
+            placeholder="Message..."
+            class="textarea textarea-bordered textarea-lg"
+          ></textarea>
+          <button class="btn">Send via {{ request.user.username }}</button>
+        </div>
+      </form>
+    </div>
+    <label class="modal-backdrop" for="my_modal_7">Close</label>
+  </div>
+
+  {% else %}
+  <!-- Modal for guests -->
+  <input type="checkbox" id="my_modal_7" class="modal-toggle" />
+  <div class="modal" role="dialog">
+    <div class="modal-box">
+      <h3 class="text-lg font-bold">No Premission!</h3>
+      <p class="py-4">Logined user only</p>
+    </div>
+    <label class="modal-backdrop" for="my_modal_7">Close</label>
+  </div>
+  {% endif %}
 </div>
