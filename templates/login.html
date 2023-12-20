@@ -3,10 +3,12 @@
 {% block title %}Home - My Website{% endblock %}
 
 {% block content %}
-    <form method="post" action="{% url 'login' %}" class"flex flex-col space-y-4">
-        {% csrf_token %}
-        <input type="text" name="username" placeholder="Username" class="flex input input-bordered w-full max-w-xs" />
-        <input type="password" name="password" placeholder="Password" class="flex input input-bordered w-full max-w-xs" />
-        <button class=" flex btn btn-wide btn-primary text-white" type="submit">Login</button>
-    </form>
+<form method="post" action="{% url 'login' %}" class="flex flex-col space-y-4">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Username" class="input input-bordered w-full max-w-xs" />
+    <input type="password" name="password" placeholder="Password" class="input input-bordered w-full max-w-xs" />
+    <button class="btn btn-wide btn-primary text-white" type="submit">Login</button>
+</form>
+
+
 {% endblock %}

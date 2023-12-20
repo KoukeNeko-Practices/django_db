@@ -18,9 +18,14 @@
           </thead>
           <tbody>
             {% for message in messages %}
-              <tr class="bg-base-200">
+              <tr class="bg-base-200 hover:bg-gray-600 cursor-pointer hover:text-white">
+
                 <td class="w-2/12">{{ message.user.username }}</td>
-                <td class="w-6/12">{{ message.text }}</td>
+                <td class="w-6/12">
+                  <div class="line-clamp-2">
+                  {{ message.text }}
+                  </div>                
+                </td>
                 <td class="w-2/12">{{ message.created_at|date:"Y-m-d H:i" }}</td>
                 <td class="w-3/12 flex space-x-2">
                   {% if message.user == request.user or request.user.is_superuser %}
@@ -67,7 +72,7 @@
                 </form>
                 {% else %}
                     <!-- Do not show buttons if the message was sent by another user -->
-                    <div>-</div>
+                    <div class="btn btn-square btn-outline hover:bg-red-500 invisible">-</div>
                 {% endif %}
                 
                 </td>

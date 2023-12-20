@@ -60,7 +60,7 @@ def delete_message(request, message_id):
 @login_required
 def my_messages(request):
     user_messages = Message.objects.filter(user=request.user).order_by('-created_at')
-    return render(request, 'my_messages.html', {'messages': user_messages})
+    return render(request, 'index.html', {'messages': user_messages})
 
 def login(request):
     if request.method == 'POST':
@@ -69,10 +69,9 @@ def login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             auth_login(request, user)
-            return redirect('/')  # Redirect to a desired page after login
+            return redirect('/')  # Redirect to the index page after successful login
         else:
-            # Return an 'invalid login' error message
-            return HttpResponse('Login failed')
+            return render(request, 'login_wrong.html')  # Render the login_wrong.html if login fails
     return render(request, 'login.html')
 
 def index(request):
