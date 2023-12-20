@@ -10,41 +10,52 @@
           <!-- head -->
           <thead>
             <tr>
-              <th class="w-1/12"></th> <!-- Roughly 2/12 columns -->
-              <th class="w-2/12">Username</th> <!-- Roughly 8/12 columns -->
-              <th class="w-7/12">Message</th> <!-- Roughly 2/12 columns -->
+              <th class="w-2/12">User</th> <!-- Roughly 8/12 columns -->
+              <th class="w-6/12">Message</th> <!-- Roughly 2/12 columns -->
+              <th class="w-2/12">Created At</th>
               <th class="w-3/12">Operation</th> <!-- 1/12 columns -->
             </tr>
           </thead>
           <tbody>
-            <!-- row 1 -->
-            <tr class="bg-base-200">
-              <th class="w-1/12">1</th>
-              <td class="w-2/12">Cy Ganderton</td>
-              <td class="w-7/12">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...</td>
-              <td class="w-3/12">
+            {% for message in messages %}
+              <tr class="bg-base-200">
+                <td class="w-2/12">{{ message.user.username }}</td>
+                <td class="w-6/12">{{ message.text }}</td>
+                <td class="w-2/12">{{ message.created_at|date:"Y-m-d H:i" }}</td>
+                <td class="w-3/12">
+                  {% if message.user == request.user %}
+                  <button class="btn btn-square btn-outline">
+                    <svg
+                    xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M12 15l8.385 -8.415a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3z"
+                  />
+                  <path d="M16 5l3 3" />
+                  <path d="M9 7.07a7 7 0 0 0 1 13.93a7 7 0 0 0 6.929 -6" />
+                </svg>
+                  </button>
+                  <!-- Delete button -->
+                  <form action="{% url 'delete_message' message.id %}" method="post">
+                    {% csrf_token %}
+                    <button class="btn btn-square btn-outline hover:bg-red-500">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                  </button>
+                </form>
+                {% else %}
+                    <!-- Do not show buttons if the message was sent by another user -->
+                    <div>-</div>
+                {% endif %}
                 
-                <button class="btn btn-square btn-outline">
-                  <svg
-                  xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path
-                  d="M12 15l8.385 -8.415a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3z"
-                />
-                <path d="M16 5l3 3" />
-                <path d="M9 7.07a7 7 0 0 0 1 13.93a7 7 0 0 0 6.929 -6" />
-              </svg>
-                </button>
-
-                <button class="btn btn-square btn-outline hover:bg-red-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-              </button>
-              
-              </td>
-            </tr>
-            
+                </td>
+              </tr>
+              {% empty %}
+                <tr>
+                    <td colspan="3">No messages found.</td>
+                </tr>
+              {% endfor %}
           </tbody>
         </table>
       </div>
