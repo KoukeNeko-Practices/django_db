@@ -18,6 +18,7 @@
           </thead>
           <tbody>
             {% for message in messages %}
+
               <tr class="bg-base-200 hover:bg-gray-600 cursor-pointer hover:text-white">
 
                 <td class="w-2/12">{{ message.user.username }}</td>
@@ -47,10 +48,10 @@
                       <form method="post" action="{% url 'edit_message' message.id %}">
                         {% csrf_token %}
                         <h3 class="text-lg font-bold mb-6">Edit Message!</h3>
-                        <div class="flex flex-col space-y-4">
+                        <div class="flex flex-col space-y-4 h-full">
                           <textarea
                             name="edited_message"
-                            class="textarea textarea-bordered textarea-lg"
+                            class="textarea textarea-bordered textarea-lg "
                           >{{ message.text }}</textarea>
                           <button class="btn">Edit via {{ request.user.username }}</button>
                         </div>
@@ -81,6 +82,7 @@
                 <tr>
                     <td colspan="3">No messages found.</td>
                 </tr>
+              
               {% endfor %}
           </tbody>
         </table>
