@@ -17,9 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from app.views import index
+from app.views import index,create_user,create_message
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index)
+    path('', index),
+    
+    path('create_user/', create_user, name='create_user'),
+    path('create_message/', create_message, name='create_message'),
 ]
