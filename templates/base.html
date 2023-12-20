@@ -16,11 +16,14 @@
   <body>
     {% include './components/header.html' %} 
 
-    {% block content %} 
+    <div class="flex justify-center items-center h-screen bg-base-200 ">
 
-      
+      {% block content %} 
 
-    {% endblock %}
+      {% endblock %}
+
+    </div>
+
 
     {% include './components/footer.html' %} 
     
