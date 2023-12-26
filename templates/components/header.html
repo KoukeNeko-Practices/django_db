@@ -5,9 +5,11 @@
     >
   </div>
   <div class="flex-none">
-    <form class="form-control" method="POST" action="/search/">
+    <form class="form-control flex flex-row" method="POST" action="/search/">
       {% csrf_token %}
-      <input type="text" placeholder="Search" name="search" class="input input-bordered w-24 md:w-auto" />
+      <input type="text" placeholder="Search" name="search" class="input input-bordered w-24 md:w-auto rounded-r-none focus:outline-none " />
+
+      <button class="btn btn-primary rounded-l-none">Search</button>
     </form>
     <ul class="menu menu-horizontal px-1">
       
