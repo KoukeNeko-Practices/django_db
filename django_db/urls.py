@@ -17,6 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 from app.views import index,create_user,create_message, delete_message, add_message, edit_message, my_messages, login, logout, search_view
 
 urlpatterns = [
@@ -35,4 +38,4 @@ urlpatterns = [
     
     path('create_user/', create_user, name='create_user'),
     path('create_message/', create_message, name='create_message'),
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
