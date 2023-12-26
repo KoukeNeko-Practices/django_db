@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from app.views import index,create_user,create_message, delete_message, add_message, edit_message, my_messages, login, logout
+from app.views import index,create_user,create_message, delete_message, add_message, edit_message, my_messages, login, logout, search_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,7 +26,9 @@ urlpatterns = [
     path('delete_message/<uuid:message_id>/', delete_message, name='delete_message'),
     path('add_message/', add_message, name='add_message'),
     path('edit_message/<uuid:message_id>/', edit_message, name='edit_message'),
+    
     path('my_messages/', my_messages, name='my_messages'),
+    path('search/', search_view, name='search'),
     
     path('login/', login, name="login"),
     path('logout/', logout, name='logout'),

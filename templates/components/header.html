@@ -5,6 +5,10 @@
     >
   </div>
   <div class="flex-none">
+    <form class="form-control" method="POST" action="/search/">
+      {% csrf_token %}
+      <input type="text" placeholder="Search" name="search" class="input input-bordered w-24 md:w-auto" />
+    </form>
     <ul class="menu menu-horizontal px-1">
       
       <li><a href="/">All Message</a></li>

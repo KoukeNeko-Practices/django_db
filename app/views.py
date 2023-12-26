@@ -62,6 +62,17 @@ def my_messages(request):
     user_messages = Message.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'index.html', {'messages': user_messages})
 
+def search_view(request):
+    if request.method == "POST":
+        query = request.POST.get('search', '')  # Get the search query from POST data
+        if query:
+            results = Message.objects.filter(text__icontains=query)
+        else:
+            results = Message.objects.none()  # Empty queryset
+    else:
+        results = Message.objects.none()  # Handle non-POST requests
+    return render(request, 'index_search.html', {'messages': results, "search_placeholder": query})
+
 def login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -80,7 +91,7 @@ def index(request):
 
     # Pass messages to the template
     context = {
-        'messages': messages
+        'messages': messages,
     }
     
     return render(request, 'index.html', context)
