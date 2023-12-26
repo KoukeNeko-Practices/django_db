@@ -87,7 +87,14 @@ def login(request):
 
 def index(request):
     # Retrieve all message objects from the database
-    messages = Message.objects.all().order_by('-created_at') # SQL: SELECT * FROM Message
+    # messages = Message.objects.all().order_by('-created_at') # SQL: SELECT * FROM Message
+    
+    messages = Message.objects.select_related('user').all().order_by('-created_at') 
+    # SELECT Message.*, User.username, User.email 
+    # FROM Message 
+    # JOIN User ON Message.user_id = User.id
+    # ORDER BY Message.created_at DESC;
+
 
     # Pass messages to the template
     context = {
